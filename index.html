@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Configurator</title>
+    <link href="css/style.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./js/app.js" defer></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="main-wrapper">
+        <h2>Product Configurator</h2>
+        <div class="img-main-wrapper">
+          <transition name="fade" mode="out-in">
+            <img
+              v-if="currentPanelIndex !== undefined"
+              :key="panels[currentPanelIndex].main"
+              :src="panels[currentPanelIndex].main"
+              class="img-absolute"
+            />
+          </transition>
+          <transition name="fade" mode="out-in">
+            <img
+              v-if="currentCabinetIndex !== undefined"
+              :key="cabinets[currentCabinetIndex].main"
+              :src="cabinets[currentCabinetIndex].main"
+              class="img-absolute"
+            />
+          </transition>
+          <img
+            class="img-main"
+            src="http://metro.dyadtest.com/wp-content/uploads/2019/12/CabinetTest_1tn.png"
+            alt=""
+          />
+        </div>
+        <div v-if="progressBarOn" class="progress-bar-wrapper">
+          <div class="progress-bar" :style="{width: progressBar}"></div>
+        </div>
+        <div class="content-row">
+          <h3>Choose your cabinet</h3>
+          <div class="img-thumbnail-wrapper">
+            <img
+              v-for="(panel, index) in panels"
+              class="img-thumbnail"
+              :src="panel.thumbnail"
+              @click="_handleImagePreview({key: 'currentPanelIndex',value: index})"
+              :class="currentPanelIndex == index ? 'activeClass' : ''"
+            />
+          </div>
+        </div>
+        <div class="content-row">
+          <h3>Choose your panel</h3>
+          <div class="img-thumbnail-wrapper">
+            <img
+              v-for="(cabinet, index) in cabinets"
+              class="img-thumbnail"
+              :src="cabinet.thumbnail"
+              @click="_handleImagePreview({key: 'currentCabinetIndex',value: index})"
+              :class="currentCabinetIndex == index ? 'activeClass' : ''"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
